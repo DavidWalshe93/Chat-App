@@ -38,8 +38,12 @@ app.use(publicRouter);
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
 
-io.on("connection", () => {
-    console.log("New WebSocket Connection")
+let count = 0;
+
+io.on("connection", (socket) => {
+    console.log("New WebSocket Connection");
+
+    socket.emit("countUpdated", count)
 });
 
 module.exports = {
