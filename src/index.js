@@ -12,7 +12,7 @@ io.on("connection", (socket) => {
 
     // Sends the welcome message to user on connection.
     socket.emit("message", "Welcome");
-    // Send notification to all users except this user.
+    // Send notification to all users except this user that they have joined.
     socket.broadcast.emit("message", "A new user has joined");
 
     // If user sends a msg, send it to all users using "io" object vs "socket" object.
@@ -21,6 +21,7 @@ io.on("connection", (socket) => {
         io.emit("message", msg);
     });
 
+    // Broadcast message that a user has left the chat
     socket.on("disconnect", () => {
         io.emit("message", "A user has left");
     })
