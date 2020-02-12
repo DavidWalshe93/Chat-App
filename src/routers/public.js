@@ -10,7 +10,7 @@ const express = require("express");
 const router = new express.Router();
 
 // Setup GET endpoint
-router.get("/chat", async (req, res) => {
+router.get(["", "/chat", "/index"], async (req, res) => {
     try {
         res.render("index", {})
     } catch (e) {
