@@ -10,13 +10,19 @@ const port = process.env.PORT;
 io.on("connection", (socket) => {
     console.log("New Websocket Connection");
 
-    // Sends the welcome message to user on connection
+    // Sends the welcome message to user on connection.
     socket.emit("message", "Welcome");
+    // Send notification to all users except this user.
+    socket.broadcast.emit("message", "A new user has joined");
 
-    // If user sends a msg, send it to all users using "io" object vs "socket" object
+    // If user sends a msg, send it to all users using "io" object vs "socket" object.
     socket.on("sendMessage", (msg) => {
         console.log("Sending msg:", msg);
         io.emit("message", msg);
+    });
+
+    socket.on("disconnect", () => {
+        io.emit("message", "A user has left");
     })
 });
 
