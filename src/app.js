@@ -40,10 +40,18 @@ app.set("view engine", "hbs");
 
 let count = 0;
 
+// Setup socket.io server
 io.on("connection", (socket) => {
     console.log("New WebSocket Connection");
 
-    socket.emit("countUpdated", count)
+    // Sends the count to user on connection
+    socket.emit("countUpdated", count);
+
+    // If user increments update for all users using io vs socket
+    socket.on("increment", () => {
+        count++;
+        io.emit("countUpdated", count);
+    })
 });
 
 module.exports = {
