@@ -2,16 +2,18 @@
 
 const socket = io();
 
+// Message receiver from server
 socket.on("message", (msg) => {
     console.log(msg)
 });
 
-// socket.on("countUpdated", (count) => {
-//     console.log("The count has updated", count)
-// });
-//
-//
-// document.querySelector("#increment").addEventListener("click", () => {
-//     console.log("Clicked");
-//     socket.emit("increment");
-// });
+// Message transmitter
+document.querySelector("#button-addon2").addEventListener("click", () => {
+
+    // Get input field.
+    const input = document.querySelector("#msg-input");
+    // Send message to server with text.
+    socket.emit("sendMessage", input.value);
+    // Clear input field.
+    input.value = ""
+});
