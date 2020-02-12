@@ -6,18 +6,16 @@ const path = require("path");
 // npm imports
 const express = require("express");
 
-// Define paths for Express config
-const publicDirectoryPath = path.join(__dirname, "..", "public");
-
 // Setup express router
 const router = new express.Router();
 
-// Setup static resources for public router
-router.use(express.static(publicDirectoryPath));
-
 // Setup GET endpoint
 router.get("/chat", async (req, res) => {
-    res.render("index", {})
+    try {
+        res.render("index", {})
+    } catch (e) {
+        console.log(e)
+    }
 });
 
 
