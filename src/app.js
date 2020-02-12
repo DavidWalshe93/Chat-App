@@ -2,9 +2,11 @@
 
 // Built-in module imports
 const path = require("path");
+const http = require("http");
 // npm Imports
 const express = require("express");
 const hbs = require("hbs");
+const socketio = require("socket.io");
 
 // local imports
 const publicRouter = require("./routers/public");
@@ -16,6 +18,10 @@ const partialsPath = path.join(__dirname, "..", "templates", "partials");
 
 // Create express instance
 const app = express();
+// Create raw http webserver with express app to pass to socket.io
+const server = http.createServer(app);
+// Pass webserver to socket.io to configure
+const io = socketio(server);
 
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
@@ -32,4 +38,11 @@ app.use(publicRouter);
 // Setup handlebars engine and views location
 app.set("view engine", "hbs");
 
-module.exports = app;
+io.on("connection", () => {
+    console.log("New WebSocket Connection")
+});
+
+module.exports = {
+    app,
+    server
+};
