@@ -2,6 +2,10 @@
 
 const socket = io();
 
+socket.on("message", (msg) => {
+    console.log(msg)
+});
+
 // socket.on("countUpdated", (count) => {
 //     console.log("The count has updated", count)
 // });

@@ -22,6 +22,12 @@ const port = process.env.PORT;
 //     })
 // });
 
+io.on("connection", (socket) => {
+    console.log("New Websocket Connection");
+
+    socket.emit("messgae", "Welcome")
+});
+
 // Start Express application.
 server.listen(port, () => {
     console.log("Server is up on port " + port)
